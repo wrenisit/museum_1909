@@ -59,6 +59,16 @@ class MuseumTest < MiniTest::Test
   end
 
   def test_patrons_by_exhibit_interest
-
+    gems_and_minerals = Exhibit.new("Gems and Minerals", 0)
+    dead_sea_scrolls = Exhibit.new("Dead Sea Scrolls", 10)
+    imax = Exhibit.new("IMAX", 15)
+    @dmns.add_exhibit(gems_and_minerals)
+    @dmns.add_exhibit(dead_sea_scrolls)
+    @dmns.add_exhibit(imax)
+    @dmns.admit(@bob)
+    @sal = Patron.new("Sal", 20)
+    @dmns.admit(@sal)
+    @sal.add_interest("Dead Sea Scrolls")
+    assert_equal 3, @dmns.patrons_by_exhibit.flatten.count
   end
 end
