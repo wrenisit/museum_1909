@@ -70,5 +70,8 @@ class MuseumTest < MiniTest::Test
     @dmns.admit(@sal)
     @sal.add_interest("Dead Sea Scrolls")
     assert_equal 3, @dmns.patrons_by_exhibit.flatten.count
+    assert_equal true, @dmns.patrons_by_exhibit.include?(imax)
+    assert_equal true, @dmns.patrons_by_exhibit.include?(dead_sea_scrolls)
+    assert_equal true, @dmns.patrons_by_exhibit.include?(gems_and_minerals)
   end
 end
