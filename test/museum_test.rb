@@ -5,6 +5,7 @@ require './lib/exhibit'
 require './lib/patron'
 
 class MuseumTest < MiniTest::Test
+
   def setup
     @dmns = Museum.new("Denver Museum of Nature and Science")
     @bob = Patron.new("Bob", 20)
@@ -74,4 +75,5 @@ class MuseumTest < MiniTest::Test
     assert_equal true, @dmns.patrons_by_exhibit.include?(dead_sea_scrolls)
     assert_equal true, @dmns.patrons_by_exhibit.include?(gems_and_minerals)
   end
+  
 end

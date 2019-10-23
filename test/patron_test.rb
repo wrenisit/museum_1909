@@ -3,6 +3,7 @@ require 'minitest/pride'
 require './lib/patron'
 
 class PatronTest < MiniTest::Test
+
   def setup
     @bob = Patron.new("Bob", 20)
   end
@@ -26,4 +27,5 @@ class PatronTest < MiniTest::Test
     assert_equal "Dead Sea Scrolls", @bob.interests.first
     assert_equal ["Dead Sea Scrolls", "Gems and Minerals"], @bob.interests
   end
+  
 end
