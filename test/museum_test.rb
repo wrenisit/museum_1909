@@ -7,7 +7,11 @@ require './lib/patron'
 class MuseumTest < MiniTest::Test
   def setup
     @dmns = Museum.new("Denver Museum of Nature and Science")
-
+    @bob = Patron.new("Bob", 20)
+    @bob.add_interest("Dead Sea Scrolls")
+    @bob.add_interest("Gems and Minerals")
+    @sally = Patron.new("Sally", 20)
+    @sally.add_interest("IMAX")
   end
 
   def test_it_exists
@@ -32,5 +36,29 @@ class MuseumTest < MiniTest::Test
     assert_equal 2, @dmns.exhibits.count
     @dmns.add_exhibit(imax)
     assert_equal 3, @dmns.exhibits.count
+  end
+
+  def test_recommend_exhibits
+    gems_and_minerals = Exhibit.new("Gems and Minerals", 0)
+    dead_sea_scrolls = Exhibit.new("Dead Sea Scrolls", 10)
+    imax = Exhibit.new("IMAX", 15)
+    @dmns.add_exhibit(gems_and_minerals)
+    @dmns.add_exhibit(dead_sea_scrolls)
+    @dmns.add_exhibit(imax)
+
+    assert_equal 2, @dmns.recommend_exhibits(@bob).count
+    assert_equal 1, @dmns.recommend_exhibits(@sally).count
+  end
+
+  def test_admit_method_and_patrons_array
+    assert_equal [], @dmns.patrons
+    @dmns.admit(@bob)
+    assert_equal [@bob], @dmns.patrons
+    @dmns.admit(@sally)
+    assert_equal [@bob, @sally], @dmns.patrons
+  end
+
+  def test_patrons_by_exhibit_interest
+
   end
 end
